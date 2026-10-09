@@ -70,7 +70,9 @@ export const LoginPage = (props: { redirectTo?: string }) => {
         const errorMessage =
           typeof error === "string"
             ? error
-            : error?.message || error?.error_description || "Invalid email or password";
+            : error?.message ||
+              error?.error_description ||
+              "Invalid email or password";
         notify(errorMessage, {
           type: "error",
           messageArgs: {
@@ -81,52 +83,93 @@ export const LoginPage = (props: { redirectTo?: string }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(37,99,235,0.14),_transparent_30%),linear-gradient(180deg,_#f8fbff_0%,_#f1f5f9_100%)] p-0 lg:p-6">
-      <div className="relative grid min-h-screen w-full overflow-hidden bg-card/85 shadow-[0_30px_80px_rgba(15,23,42,0.12)] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-2 lg:rounded-[2rem] lg:border lg:border-border/80">
-        <div className="relative hidden h-full flex-col overflow-hidden bg-[#071a33] p-10 text-white dark:border-r lg:flex">
+    <div className="min-h-svh bg-[radial-gradient(circle_at_top_left,_rgba(37,99,235,0.14),_transparent_30%),linear-gradient(180deg,_#f8fbff_0%,_#f1f5f9_100%)] p-3 sm:p-5 md:p-4">
+      <div className="relative grid min-h-[calc(100svh-1.5rem)] w-full overflow-hidden rounded-[1.5rem] border border-border/70 bg-card shadow-[0_30px_80px_rgba(15,23,42,0.12)] sm:rounded-[1.75rem] md:min-h-[calc(100svh-2rem)] md:grid-cols-2 md:rounded-[2rem]">
+        <div className="relative flex flex-col overflow-hidden bg-[#071a33] px-6 py-5 text-white md:hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(37,99,235,0.5),_transparent_42%),linear-gradient(145deg,_#071a33_0%,_#0b2345_65%,_#12366a_100%)]" />
+          <div className="relative z-10 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20">
+              <img
+                className="h-6 w-6 object-contain"
+                src={darkModeLogo}
+                alt={title}
+              />
+            </div>
+            <div>
+              <p className="text-sm font-semibold">{title}</p>
+              <p className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-blue-200/75">
+                FINLONEXA workspace
+              </p>
+            </div>
+          </div>
+          <p className="relative z-10 mt-5 max-w-sm text-lg font-semibold leading-snug tracking-tight">
+            Clarity for every customer conversation.
+          </p>
+        </div>
+        <div className="relative hidden flex-col overflow-hidden bg-[#071a33] p-8 text-white md:flex lg:p-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(37,99,235,0.5),_transparent_42%),linear-gradient(145deg,_#071a33_0%,_#0b2345_65%,_#12366a_100%)]" />
           <div className="relative z-20 flex flex-col gap-1">
-            <div className="flex items-center text-lg font-semibold">
-              <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20">
-                <img className="h-6 w-6 object-contain" src={darkModeLogo} alt={title} />
+            <div className="flex items-center text-base font-semibold">
+              <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/20">
+                <img
+                  className="h-6 w-6 object-contain"
+                  src={darkModeLogo}
+                  alt={title}
+                />
               </div>
               {title}
             </div>
-            <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-blue-200/70">FINLONEXA workspace</p>
+            <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-blue-200/70">
+              FINLONEXA workspace
+            </p>
           </div>
-          <div className="relative z-20 mt-auto max-w-sm">
-            <p className="text-4xl font-semibold leading-tight tracking-[-0.04em]">Clarity for every customer conversation.</p>
-            <p className="mt-4 text-sm leading-6 text-blue-100/70">Keep teams aligned, follow-ups visible, and revenue moving from one calm workspace.</p>
+          <div className="relative z-20 mt-auto max-w-md pb-1">
+            <p className="text-3xl font-semibold leading-tight tracking-[-0.04em] lg:text-4xl">
+              Clarity for every customer conversation.
+            </p>
+            <p className="mt-4 text-sm leading-6 text-blue-100/70">
+              Keep teams aligned, follow-ups visible, and revenue moving from
+              one calm workspace.
+            </p>
           </div>
         </div>
-        <div className="flex w-full flex-col justify-center p-5 sm:p-8 lg:p-12">
-          <div className="mx-auto w-full max-w-sm space-y-6">
-            <div className="text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
+        <div className="flex w-full flex-col justify-center px-6 py-9 sm:px-10 sm:py-12 md:px-8 md:py-10 lg:px-12">
+          <div className="mx-auto w-full max-w-sm space-y-7">
+            <div className="space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight sm:text-[1.75rem]">
                 {translate("ra.auth.sign_in")}
               </h1>
+              <p className="text-sm text-muted-foreground">
+                Welcome back. Sign in to your workspace.
+              </p>
             </div>
             {disableEmailPasswordAuthentication ? null : (
-              <Form className="space-y-8" onSubmit={handleSubmit}>
+              <Form className="space-y-5" onSubmit={handleSubmit}>
                 <TextInput
                   label="ra.auth.email"
                   source="email"
                   type="email"
+                  autoComplete="username"
+                  inputClassName="h-11 rounded-xl"
                   validate={required()}
                 />
                 <TextInput
                   label="ra.auth.password"
                   source="password"
                   type="password"
+                  autoComplete="current-password"
+                  inputClassName="h-11 rounded-xl"
                   validate={required()}
                 />
                 <div className="flex flex-col gap-4">
                   <Button
                     type="submit"
-                    className="cursor-pointer"
+                    className="h-11 w-full cursor-pointer rounded-xl"
                     disabled={loading}
                   >
-                    {translate("ra.auth.sign_in")}
+                    {loading
+                      ? translate("ra.auth.signing_in", { _: "Signing in..." })
+                      : translate("ra.auth.sign_in")}
                   </Button>
                 </div>
               </Form>
